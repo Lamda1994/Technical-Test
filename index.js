@@ -4,7 +4,7 @@ const c = console.log
 const path = require('path')
 const morgan = require('morgan')
 const { mongoose } = require('./database')
- 
+
 //setting
 app.set('port', process.env.PORT || 4000)
 
@@ -14,6 +14,7 @@ app.use(express.json())
 
 //routes
 app.use('/api/task', require('./routes/taskRoutes'))
+app.use('/api/user', require('./routes/userRoutes'))
 
 //static file
 app.use(express.static(path.join(__dirname, 'public')))
