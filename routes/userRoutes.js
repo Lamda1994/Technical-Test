@@ -22,7 +22,7 @@ router.get("/:id", async (req, res) => {
    }
 })
 
-router.post("/:id", async (req, res) => {
+router.post("/", async (req, res) => {
    try {
       const {name, id, email, password, type} = req.body
       const user = new Users({name, id, email, password, type})
