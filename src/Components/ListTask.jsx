@@ -16,14 +16,14 @@ const TaskList = (props)=>(
             <tbody>
                 {
                     props.tasks.map(task => (
-                        <Task 
-                            key={task.id}
-                            name={task.name}
+                        <Task
+                            key={task._id}
+                            name={task.title}
                             description={task.description}
                             status={task.status}
                         />
                     ))
-                }                      
+                }
             </tbody>
         </table>
     </div>

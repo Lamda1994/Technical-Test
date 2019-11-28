@@ -4,7 +4,7 @@ import {
     BrowserRouter as Router,
     Route,
     Link,
-    
+
 } from 'react-router-dom'
 import NewTask from './NewTask';
 import Axios from 'axios';
@@ -22,9 +22,13 @@ class App extends Component{
 
     componentDidMount(){
         var config = {
-            headers: {'Access-Control-Allow-Origin': '*'}
+            headers: {
+                      "Access-Control-Allow-Origin": "http://localhost:8080",
+                      "Access-Control-Allow-Headers": "Content-Type",
+                      "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
+                    }
         }
-        Axios.get('http://localhost:4000/api/task', config)
+        fetch('http://localhost:4000/api/task', config)
             .then(res => res.json())
             .then(data => {
                 this.setState({tasks: data})
@@ -53,14 +57,14 @@ class App extends Component{
                             </li>
                         </ul>
                         </div>
-                    </nav>                  
+                    </nav>
                     <div >
-                        <div className="row">                        
-                            <div className="col s8 push-s2"> 
-                            <Route path="/task">                        
+                        <div className="row">
+                            <div className="col s8 push-s2">
+                            <Route path="/task">
                                 <TaskList tasks={this.state.tasks} />
                             </Route>
-                            <Route path="/task/new">                          
+                            <Route path="/task/new">
                                 <NewTask></NewTask>
                             </Route>
                             </div>
