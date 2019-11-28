@@ -28,7 +28,7 @@ class App extends Component{
                       "Access-Control-Allow-Methods": "OPTIONS,POST,GET"
                     }
         }
-        fetch('http://localhost:4000/api/task', config)
+        fetch('http://localhost:4000/api/task')
             .then(res => res.json())
             .then(data => {
                 this.setState({tasks: data})
