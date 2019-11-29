@@ -1,5 +1,11 @@
 import React from 'react'
 import User from './User';
+import UpdateUser from './UpdateUser'
+import {
+    Route
+} from 'react-router-dom'
+var user = {}
+
 const UserList = (props)=>(
     <div className="col s12">
         <table>
@@ -15,7 +21,7 @@ const UserList = (props)=>(
             </tr>
             </thead>
             <tbody>
-                {                    
+                {
                     props.users.map(user => (
                         <User
                             key={user._id}

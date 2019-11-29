@@ -2,32 +2,31 @@ import React from 'react'
 
 const UpdateTask = (props)  => (
     <div className="col s12">
-        <h3 className="center-align">Update Task</h3>
-         <form onSubmit={props.modTask}>
+        <h3 className="center-align">Update User</h3>
+         <form onSubmit={props.modUser}>
             <div className="row">
                 <div className="input-field col s6 push-s3">
-                    <input type="text" className="validate" name="title" id="title" defaultValue={props.task.title}/>
+                    <input type="text" className="validate" name="id" defaultValue={props.id}/>
                 </div>
             </div>
             <div className="row">
                 <div className="input-field col s6 push-s3">
-                    <textarea name="description"  className="materialize-textarea" defaultValue={props.task.description}></textarea>
+                    <input type="text" className="validate" name="name" defaultValue={props.name}/>
                 </div>
             </div>
             <div className="row">
                 <div className="input-field col s6 push-s3">
-                    <select>
-                        <option value="Open">Open</option>
-                        <option value="In-Progress">In-Progress</option>
-                        <option value="Completed,">Completed</option>
-                        <option value="Archived">Archived</option>
-                    </select>
-                <label>Task status</label>
+                    <input type="text" className="validate" name="email" defaultValue={props.email}/>
                 </div>
             </div>
             <div className="row">
                 <div className="input-field col s6 push-s3">
-                    <input type="text" className="validate" name="title" id="title" defaultValue={props.task.status} />
+                    <input type="text" className="validate" name="pass" defaultValue={props.pass}/>
+                </div>
+            </div>
+            <div className="row">
+                <div className="input-field col s6 push-s3">
+                    <input type="text" className="validate" name="status" defaultValue={props.status} />
                 </div>
             </div>
             <div className="row">

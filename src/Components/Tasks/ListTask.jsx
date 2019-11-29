@@ -13,12 +13,12 @@ const TaskList = (props)=>(
             </tr>
             </thead>
             <tbody>
-                {                    
+                {
                     props.tasks.map(task => (
                         <Task
                             key={task._id}
                             id={task._id}
-                            name={task.title}
+                            title={task.title}
                             description={task.description}
                             status={task.status}
                             del={props.del}

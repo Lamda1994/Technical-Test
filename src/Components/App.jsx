@@ -3,13 +3,14 @@ import TaskList from './Tasks/ListTask';
 import NewTask from './Tasks/NewTask';
 import UpdateTask from './Tasks/UpdateTask';
 import ListUser from './Users/ListUser';
+import UpdateUser from './Users/UpdateUser'
 import {
     BrowserRouter as Router,
     Route,
     Link,
     Switch
 } from 'react-router-dom'
-import NewUser from './Users/NewUSer';
+import NewUser from './Users/NewUser';
 
 //import {render} from 'react-dom'
 
@@ -26,7 +27,8 @@ class App extends Component{
                 title:"",
                 description:"",
                 status:""
-            }
+            },
+            user:{}
         }
         this.addNewTask =  this.addNewTask.bind(this)
         this.deleteTask = this.deleteTask.bind(this)
@@ -69,7 +71,7 @@ class App extends Component{
             title: form.title.value,
             description: form.description.value
         }
-        
+
         console.log(task)
         let config = {
                method: "POST",
@@ -79,7 +81,7 @@ class App extends Component{
                },
                body: JSON.stringify(task),
                mode: 'cors',
-               cache: 'default' 
+               cache: 'default'
         }
         fetch('http://localhost:4000/api/task', config)
             .then(res => res.json())
@@ -104,7 +106,7 @@ class App extends Component{
             type:form.type.value,
             password: form.pass.value
         }
-        
+
         console.log(user)
         let config = {
                method: "POST",
@@ -114,7 +116,7 @@ class App extends Component{
                },
                body: JSON.stringify(user),
                mode: 'cors',
-               cache: 'default' 
+               cache: 'default'
         }
         fetch('http://localhost:4000/api/user', config)
             .then(res => res.json())
@@ -133,7 +135,7 @@ class App extends Component{
         let config = {
                 method: "DELETE",
                 mode: 'cors',
-                cache: 'default' 
+                cache: 'default'
         }
 
         let url = 'http://localhost:4000/api/task/'+id
@@ -150,7 +152,7 @@ class App extends Component{
         let config = {
                 method: "DELETE",
                 mode: 'cors',
-                cache: 'default' 
+                cache: 'default'
         }
 
         let url = 'http://localhost:4000/api/user/'+id
@@ -163,12 +165,16 @@ class App extends Component{
             .catch(err => console.error(err))
     }
 
-    updateTask(id){
-        console.log(id)
+    updateTask(props){
+        let {id, title, description, status} = props
+        let data = {id, title, description, status}
+        this.setState({update: data})
+        console.log(this.state)
     }
 
-    updateUser(id){
-        console.log(id)
+    updateUser(props){
+      this.setState({user: props})
+      console.log(this.state)
     }
 
     render(){
@@ -186,6 +192,9 @@ class App extends Component{
                                 <Link to="/user">Users</Link>
                             </li>
                             <li>
+                                <Link to="/task/edit">Users</Link>
+                            </li>
+                            <li>
                                 <a href="/">Sing Out</a>
                             </li>
                         </ul>
@@ -195,37 +204,41 @@ class App extends Component{
                         <div className="row">
                             <div className="col s8 push-s2">
                                 <Switch>
-                                    <Route path="/task/new">
-                                        <NewTask addTask={this.addNewTask} msj={this.state.msj}></NewTask>
+                                    <Route path="/user/edit">
+                                      <UpdateUser user={this.user} />
                                     </Route>
-                                    <Route path="/task">
-                                        <div>
-                                            <h3 className="center-align">List of Task</h3> 
-                                            <Link to="/task/new" className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">add</i></Link>
-                                            <TaskList tasks={this.state.tasks} del={this.deleteTask}/>
-                                        </div>                                        
-                                    </Route>  
-                                    <Route path="/user/new">
-                                        <NewUser addUser={this.addNewUser} msj={this.state.msj}></NewUser>
-                                    </Route> 
-                                    <Route path="/user">
-                                        <div>
-                                            <h3 className="center-align">List of Users</h3> 
-                                            <Link to="/user/new" className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">add</i></Link>
-                                            <ListUser users={this.state.users} del={this.deleteUser}/>
-                                        </div>                                        
-                                    </Route>                                  
                                     <Route path="/task/edit">
-                                        <UpdateTask 
+                                        <UpdateTask
                                             key={this.state.update.id}
                                             id={this.state.update.id}
                                             name={this.state.update.title}
                                             description={this.state.update.description}
                                             status={this.state.update.status}
-                                            mod={this.updateTask(this.state.update.id)}
                                         />
                                     </Route>
+                                    <Route path="/task/new">
+                                        <NewTask addTask={this.addNewTask} msj={this.state.msj}></NewTask>
+                                    </Route>
+                                    <Route path="/task">
+                                        <div>
+                                            <h3 className="center-align">List of Task</h3>
+                                            <Link to="/task/new" className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">add</i></Link>
+                                            <TaskList tasks={this.state.tasks} del={this.deleteTask} mod={this.updateTask}/>
+                                        </div>
+                                    </Route>
+                                    <Route path="/user/new">
+                                        <NewUser addUser={this.addNewUser} msj={this.state.msj}></NewUser>
+                                    </Route>
+                                    <Route path="/user">
+                                        <div>
+                                            <h3 className="center-align">List of Users</h3>
+                                            <Link to="/user/new" className="btn-floating btn-large waves-effect waves-light"><i className="material-icons">add</i></Link>
+                                            <ListUser users={this.state.users} del={this.deleteUser} />
+                                        </div>
+                                    </Route>
+
                                 </Switch>
+
                             </div>
                         </div>
                     </div>
